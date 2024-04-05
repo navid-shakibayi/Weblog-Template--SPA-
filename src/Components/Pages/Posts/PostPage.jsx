@@ -1,31 +1,32 @@
 import { useEffect, useState } from "react"
-import Card from "./Card"
+import { Link, useParams } from "react-router-dom"
 
-const IndexUsers = ({
+const PostPage = ({
 
 }) => {
 
-    const [users, setUsers] = useState(null)
+    const { postId } = useParams()
+    const [post, setPost] = useState(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
 
     useEffect(() => {
-        fetch("https://jsonplaceholder.org/users")
+        fetch(`https://jsonplaceholder.org/posts/${postId}`)
             .then(res => res.json())
             .then(data => {
-                setUsers(data)
+                setPost(data)
                 setLoading(false)
                 setError(null)
             }).catch(err => {
                 setError(err.message)
                 setLoading(false)
             })
-    }, [])
+    }, [postId])
 
     return <>
         <section className="max-w-7xl mx-auto px-5">
-            <h1 className="text-3xl font-bold">Users :</h1>
-            {error && <div>{error}</div>}
+
+            {error && <p>Failed to fetch data from the server</p>}
 
             {loading && <div className="grid min-h-[140px] w-full overflow-x-scroll rounded-lg p-6 lg:overflow-visible">
                 <svg className="text-gray-300 animate-spin" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -40,9 +41,20 @@ const IndexUsers = ({
                 </svg>
             </div>}
 
-            {users && <Card users={users} />}
+            {post && <section className="max-w-7xl mx-auto flex flex-col gap-6 mt-6">
+                <section className="w-full hover:shadow-lg transition duration-500">
+                    <p className="bg-indigo-700 text-white px-2 py-1 text-xl font-medium rounded-t-lg">{post.title}</p>
+                    <ul className="flex flex-col divide-y-4 divide-indigo-300 border-b-4 border-x-4 border-indigo-300 rounded-b">
+                        <li className="px-2 py-1 text-lg">Username : {post.content}</li>
+                        <li className="px-2 py-2 text-lg bg-indigo-700 flex gap-2">
+                            <Link to="/posts" className="w-fit rounded-lg bg-red-600 px-5 py-3 text-sm font-medium text-white transition hover:bg-red-300 focus:outline-none focus:ring">Delete</Link>
+                            <Link to="/posts" className="w-fit rounded-lg bg-slate-500 px-5 py-3 text-sm font-medium text-white transition hover:bg-slate-300 focus:outline-none focus:ring">Edit</Link>
+                        </li>
+                    </ul>
+                </section>
+            </section>}
         </section>
     </>
 }
 
-export default IndexUsers
+export default PostPage

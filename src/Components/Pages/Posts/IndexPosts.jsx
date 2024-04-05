@@ -1,31 +1,35 @@
 import { useEffect, useState } from "react"
-import Card from "./Card"
+import PostsCard from "./PostsCard"
+import { Link } from "react-router-dom"
 
-const IndexUsers = ({
+const IndexPosts = ({
 
 }) => {
 
-    const [users, setUsers] = useState(null)
+    const [posts, setPosts] = useState(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
 
     useEffect(() => {
-        fetch("https://jsonplaceholder.org/users")
+        fetch("https://jsonplaceholder.org/posts")
             .then(res => res.json())
             .then(data => {
-                setUsers(data)
+                setPosts(data)
                 setLoading(false)
                 setError(null)
             }).catch(err => {
                 setError(err.message)
                 setLoading(false)
             })
-    }, [])
+    })
 
     return <>
         <section className="max-w-7xl mx-auto px-5">
-            <h1 className="text-3xl font-bold">Users :</h1>
-            {error && <div>{error}</div>}
+            <h1 className="text-3xl font-bold mb-5">Posts page :</h1>
+
+            <Link to="/posts/create" className="w-fit rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white transition hover:bg-red-300 focus:outline-none focus:ring">Create Post</Link>
+
+            {error && <p>Failed to fetch data from the server</p>}
 
             {loading && <div className="grid min-h-[140px] w-full overflow-x-scroll rounded-lg p-6 lg:overflow-visible">
                 <svg className="text-gray-300 animate-spin" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -40,9 +44,9 @@ const IndexUsers = ({
                 </svg>
             </div>}
 
-            {users && <Card users={users} />}
+            {posts && <PostsCard posts={posts} />}
         </section>
     </>
 }
 
-export default IndexUsers
+export default IndexPosts
