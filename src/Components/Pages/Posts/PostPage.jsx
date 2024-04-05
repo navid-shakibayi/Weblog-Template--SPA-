@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
+import Delete from "./Delete"
 
 const PostPage = ({
 
@@ -45,10 +46,10 @@ const PostPage = ({
                 <section className="w-full hover:shadow-lg transition duration-500">
                     <p className="bg-indigo-700 text-white px-2 py-1 text-xl font-medium rounded-t-lg">{post.title}</p>
                     <ul className="flex flex-col divide-y-4 divide-indigo-300 border-b-4 border-x-4 border-indigo-300 rounded-b">
-                        <li className="px-2 py-1 text-lg">Username : {post.content}</li>
+                        <li className="px-2 py-1 text-lg">{post.content}</li>
                         <li className="px-2 py-2 text-lg bg-indigo-700 flex gap-2">
-                            <Link to="/posts" className="w-fit rounded-lg bg-red-600 px-5 py-3 text-sm font-medium text-white transition hover:bg-red-300 focus:outline-none focus:ring">Delete</Link>
-                            <Link to="/posts" className="w-fit rounded-lg bg-slate-500 px-5 py-3 text-sm font-medium text-white transition hover:bg-slate-300 focus:outline-none focus:ring">Edit</Link>
+                            <Delete postId={post.id} />
+                            <Link to={`/posts/edit/${postId}`} className="w-fit rounded-lg bg-slate-500 px-5 py-3 text-sm font-medium text-white transition hover:bg-slate-300 focus:outline-none focus:ring">Edit</Link>
                         </li>
                     </ul>
                 </section>
