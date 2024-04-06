@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Weblog-Template--SPA-/static/css/main.cd2a36db.css",
+    "main.js": "/Weblog-Template--SPA-/static/js/main.4c209738.js",
+    "index.html": "/Weblog-Template--SPA-/index.html",
+    "main.cd2a36db.css.map": "/Weblog-Template--SPA-/static/css/main.cd2a36db.css.map",
+    "main.4c209738.js.map": "/Weblog-Template--SPA-/static/js/main.4c209738.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.cd2a36db.css",
+    "static/js/main.4c209738.js"
+  ]
+}
